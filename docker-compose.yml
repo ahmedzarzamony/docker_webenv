@@ -1,0 +1,33 @@
+version: '3.3'
+
+services:
+    ngx:
+      image: nginx:latest
+      volumes:
+        - ./nginx:/etc/nginx/conf.d
+        - ./code:/code
+      ports:
+        - "8080:80"
+      links:
+        - php
+    php:
+      image: php:7.3.2-fpm
+      volumes:
+        - ./code:/code
+    mariadb:
+        image: mariadb:latest
+        restart: always
+        environment:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: zizo
+          MYSQL_USER: root 
+          MYSQL_PASSWORD: root
+    postgres:
+        image: postgres:latest
+        restart: always
+        environment: 
+          POSTGRES_DB: zizo
+          POSTGRES_USER: zizo
+          POSTGRES_PASSWORD: zizo
+
+
